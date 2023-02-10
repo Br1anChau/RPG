@@ -1,0 +1,2 @@
+0; Guard; Hello; talking;expression1.png
+1; Guard; There are problems outside can you help; talking; expression2.png
