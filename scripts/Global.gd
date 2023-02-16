@@ -9,12 +9,14 @@ func load_dialogue():
 	file.open('res://dialouge.txt', File.READ)
 	var content = file.get_as_text().split('\n')
 	for i in content:
-		dialogues.append(i.split(';'))
+		var line = i.split(';')
+		dialogues.append(line)
 
 func _ready():
 	var root = get_tree().root
 	current_scene = root.get_child(root.get_child_count() - 1)
 	load_dialogue()
+	print(dialogues)
 
 func goto_scene(path):
 	# DON'T DELETE THIS METHOD IT'S IMPORTANT!!!!!!!!!!!!!!!!!!!!!
