@@ -1,0 +1,5 @@
+Guard; Hello; talking;guard.png.CONTINUE
+Guard; There are problems outside can you help; talking; guard.png.CONTINUE
+Guard; The demons are roaming out of the town and somebody needs to defeat them; talking; guard.png.CONTINUE
+Guard; Be careful some of them hunt in packs; talking; guard.png.CONTINUE
+Guard;;;STOP
