@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 var interacting = null
 var typing = false
+var index = 0
 
 onready var camera = $Camera2D
 
@@ -18,18 +19,19 @@ func _ready():
 	pass # Replace with function body.
 
 func get_input():
-	if Input.is_action_pressed('ui_up'):
-		velocity.y -= 100
-	if Input.is_action_pressed('ui_down'):
-		velocity.y += 100
-	if not (Input.is_action_pressed('ui_up') || Input.is_action_pressed('ui_down')):
-		velocity.y *= FRICTION
-	if Input.is_action_pressed('ui_left'):
-		velocity.x -= 100
-	if Input.is_action_pressed('ui_right'):
-		velocity.x += 100
-	if not (Input.is_action_pressed('ui_left') || Input.is_action_pressed('ui_right')):
-		velocity.x *= FRICTION
+	if(!typing):
+		if Input.is_action_pressed('ui_up'):
+			velocity.y -= 100
+		if Input.is_action_pressed('ui_down'):
+			velocity.y += 100
+		if not (Input.is_action_pressed('ui_up') || Input.is_action_pressed('ui_down')):
+			velocity.y *= FRICTION
+		if Input.is_action_pressed('ui_left'):
+			velocity.x -= 100
+		if Input.is_action_pressed('ui_right'):
+			velocity.x += 100
+		if not (Input.is_action_pressed('ui_left') || Input.is_action_pressed('ui_right')):
+			velocity.x *= FRICTION
 
 func _process(delta):
 	if velocity.length() > 10:
@@ -45,20 +47,19 @@ func _process(delta):
 			npcName.visible = true
 			content.visible = true
 			npcName.text = interacting.name
-			for i in Global.dialogues:
-				var array = i;
-				print(array)
-				if(array[0] == interacting.name):
-					if(array[1] == null):
-						interacting == false
-						textBox.visible = false
-						npcName.visible = false
-						content.visible = false
+			if(!typing):
+				for i in Global.dialogues.size():
+					if(Global.dialogues[i][0] == npcName.text):
+						index = i
 						break
-					elif(array[1] == content.text):
-						continue
-					else:
-						content.text = array[1]
-						break
-				else:
-					break;
+				typing = true
+			if(Global.dialogues[index][1] == "finished"):
+				interacting == null
+				textBox.visible = false
+				npcName.visible = false
+				content.visible = false
+				typing = false
+				index = 0
+			else:
+				content.text = Global.dialogues[index][1]
+				index = index +1 
