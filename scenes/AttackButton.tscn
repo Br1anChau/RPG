@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/Button.gd" type="Script" id=1]
+
+[node name="AttackControl" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -643.0
+margin_bottom = -500.0
+rect_scale = Vector2( 0.703834, 0.667937 )
+
+[node name="Button" type="Button" parent="."]
+margin_right = 166.0
+margin_bottom = 20.0
+rect_scale = Vector2( 1.56971, 1.41232 )
+script = ExtResource( 1 )
+
+[connection signal="pressed" from="Button" to="Button" method="_on_Button_pressed"]

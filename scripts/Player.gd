@@ -5,10 +5,13 @@ var typing = false
 var index = 0
 
 onready var camera = $Camera2D
+onready var animatedSprite = $AnimatedSprite
 
 onready var textBox = $Camera2D/TextBox
 onready var npcName = $Camera2D/Name
 onready var content = $Camera2D/Content
+onready var inventory = $Camera2D/inventory
+onready var moneyCount = $Camera2D/inventory/MoneyCount
 
 var velocity = Vector2()
 const PLAYER_SPEED = 200
@@ -28,8 +31,10 @@ func get_input():
 			velocity.y *= FRICTION
 		if Input.is_action_pressed('ui_left'):
 			velocity.x -= 100
+			animatedSprite.play("Walking Left")
 		if Input.is_action_pressed('ui_right'):
 			velocity.x += 100
+			animatedSprite.play("Walking Right")
 		if not (Input.is_action_pressed('ui_left') || Input.is_action_pressed('ui_right')):
 			velocity.x *= FRICTION
 
@@ -39,6 +44,8 @@ func _process(delta):
 	get_input()
 	velocity.x = clamp(velocity.x, -PLAYER_SPEED, PLAYER_SPEED)
 	velocity.y = clamp(velocity.y, -PLAYER_SPEED, PLAYER_SPEED)
+	if(velocity.x <= 0 && velocity.y <= 0):
+		animatedSprite.play("Idle")
 	velocity  = move_and_slide(velocity)
 	
 	if Input.is_action_just_pressed("interact"):
@@ -63,3 +70,8 @@ func _process(delta):
 			else:
 				content.text = Global.dialogues[index][1]
 				index = index +1 
+	
+	if Input.is_action_just_pressed("Open_inventory"):
+		inventory.visible = !inventory.visible
+		moneyCount = PlayerVariables.counter
+		

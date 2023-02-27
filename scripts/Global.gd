@@ -1,8 +1,23 @@
 extends Node
 
 var current_scene = null
+var isAttacking = false
+var targetEnemy = null
+var targetX = 0;
+var targetY = 0;
+var goingBack = false
+var justAttacked = false
+var cooldown = 1
+var originalX = 0
+var swingingSword = false
+var enemyAttacking = false
+var playerX = -200
+var playerY = -100
+var duration = 0
+
 
 var dialogues = []
+var inventory = [[], [], [], []]
 
 func load_dialogue():
 	var file = File.new()

@@ -1,0 +1,43 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://sprites/animatedSprites/WalkingRight02.png" type="Texture" id=1]
+[ext_resource path="res://scripts/PlayerFighting.gd" type="Script" id=2]
+[ext_resource path="res://sprites/animatedSprites/Idling01.png" type="Texture" id=3]
+[ext_resource path="res://sprites/animatedSprites/WalkingLeft02.png" type="Texture" id=4]
+[ext_resource path="res://sprites/animatedSprites/WalkingLeft01.png" type="Texture" id=5]
+[ext_resource path="res://sprites/animatedSprites/WalkingRight01.png" type="Texture" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 40, 42 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "Walking Left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "Walking Right",
+"speed": 5.0
+} ]
+
+[node name="Player" type="KinematicBody2D"]
+scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 2, 6 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 1, 4 )
+scale = Vector2( 1.88, 1.92 )
+frames = SubResource( 2 )
+animation = "Walking Right"
